@@ -1,0 +1,63 @@
+
+:setvar:sc-config:qry:chorebox-rcp-find sc-config.pre
+
+:bna:extra-recipes
+:wrlry:targetworld:recipes:extra-recipes:
+
+
+::# List of PERL modules that are part of this.
+:bna:perlmodls
+:bna:x:preferencia
+:redun:x:perlmodls:
+
+
+::# Let us find out where sub-commands and modules go:
+:setvar:plcomands:dvar:jl_libexecdir:
+:apnvar:plcomands:l:/
+:apnvar:plcomands:info:name:
+:apnvar:execdirec:var:plcomands:
+:apnvar:plcomands:l:/
+::
+:apnvar:plmodules:var:plcomands:
+::
+:apnvar:plcomands:l:plcm
+:apnvar:plmodules:l:plmd
+
+
+:-:
+:-:all:
+:*: Makefile
+:foreach:perlmodls:plmodl:
+  :*: $(srcdir)/plmods/
+  :echo:var:plmodl:
+  :*:.pm
+:eachend:
+
+:-:
+:-:install: all
+:foreach:perlmodls:plmodl:
+  :setvar:plmds:var:plmodules:
+  :apnvar:plmds:l:/
+  :apnvar:plmds:var:mlmodl:
+  :dirname:plmds:
+  :->:echo mkdir -p '
+  :echo:msh:var:plmds:
+  :*:'
+:eachend:
+
+:-:
+:-:uninstall:
+:->:rm -rf '
+:echo:msh:var:execdirec:
+:*:'
+:->:rm -rf '
+:echo:msh:dvar:jl_farm_bindir:
+:*:/
+:echo:msh:info:name:
+:*:'
+
+
+
+:prcd:var:sc-config::l:targetworld::x
+
+:-:
